@@ -9,8 +9,9 @@ public interface RentACat {
 			case IMPL:
 				return new RentACatImpl();
 			case MOCK:
-				// TODO: Return a mock object that emulates the behavior of a real object.
-				return null;
+				RentACat rental = Mockito.mock(RentACat.class);
+				when(rental.listCats()).thenReturn("");
+				return rental;
 			default:
 				assert (false);
 				return null;

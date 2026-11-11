@@ -18,8 +18,17 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public boolean returnCat(int id) {
-		// TODO: Fill in
-		return false;
+		Cat cat = getCat(id);
+		if (cat == null) {
+			return false;
+		}
+		if (!cat.getRented()) {
+			System.out.println(cat.getName() + " is already here!");
+			return false;
+		}
+		cat.returnCat();
+		System.out.println("Welcome back, " + cat.getName() + "!");
+		return true;
 	}
 
 	/**
@@ -33,8 +42,17 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public boolean rentCat(int id) {
-		// TODO: Fill in
-		return false;
+		Cat cat = getCat(id);
+		if (cat == null) {
+			return false;
+		}
+		if (cat.getRented()) {
+			System.out.println("Sorry, " + cat.getName() + " is not here!");
+			return false;
+		}
+		cat.rentCat();
+		System.out.println(cat.getName() + " has been rented.");
+		return true;
 	}
 
 	/**
@@ -47,8 +65,12 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public boolean renameCat(int id, String name) {
-		// TODO: Fill in
-		return false;
+		Cat cat = getCat(id);
+		if (cat == null) {
+			return false;
+		}
+		cat.renameCat(name);
+		return true;
 	}
 
 	/**
@@ -62,15 +84,20 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public String listCats() {
-		// TODO: Fill in
-		return "WRITE CODE FOR THIS";
+		StringBuilder result = new StringBuilder();
+		for (Cat cat : cats) {
+			if (!cat.getRented()) {
+				result.append(cat.toString()).append("\n");
+			}
+		}
+		return result.toString();
 	}
 
 	/**
 	 * Given an id, return a reference to the specified cat if a cat with that ID
 	 * exists. Return null if no cat of that ID exists in the list.
 	 * 
-	 * @param int id ID of cat to search for
+	 * @param id ID of cat to search for
 	 * @return Cat searched for if exists, null otherwise
 	 */
 
